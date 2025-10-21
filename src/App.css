@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
   display: grid;
   place-content: center;
@@ -6,25 +10,49 @@ html {
   background: hsl(210deg 15% 6%);
 }
 
-.mouth {
-  width: 128px;
-  height: 128px;
+.head {
+  width: 100%;
+  height: 100%;
+  border: 1px solid hsl(210deg 10% 30%);
+}
+
+.face {
+  width: 100%;
+  height: 100%;
+  border: 1px solid hsl(210deg 10% 30%);
+  fill: hsl(52, 100%, 50%);
+  stroke-width: 1px;
+}
+
+.eye {
+  width: 100%;
+  height: 100%;
+  border: 1px solid hsl(210deg 10% 30%);
+  fill: hsl(210deg 10% 30%);
+}
+
+.pupil {
+  fill: hsl(0, 0%, 100%);
+  stroke: none;
+}
+
+.lips {
   fill: none;
-  outline: 1px solid hsl(210deg 10% 30%);
+  stroke: hsl(0, 99%, 35%);
+  stroke-width: 0.75px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
-  .lips {
-    stroke: hsl(0, 99%, 35%);
-    stroke-width: 1px;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    z-index: 2;
-  }
+.mouth {
+  fill: hsl(210deg 10% 30%);
+  stroke: none;
+}
 
-  .tooth {
-    stroke: hsl(0, 0%, 100%);
-    stroke-width: 1.5px;
-    stroke-linecap: butt;
-    stroke-linejoin: round;
-    z-index: 1;
-  }
+.tooth {
+  stroke: hsl(0, 0%, 100%);
+  stroke-width: 0.75px;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  z-index: 1;
 }

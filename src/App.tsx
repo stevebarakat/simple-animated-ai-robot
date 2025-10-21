@@ -5,24 +5,39 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <svg className="mouth" viewBox="0 0 16 16">
-      <line className="tooth" x1="3" y1="2.5" x2="3" y2="4" />
-      <line className="tooth" x1="5" y1="2" x2="5" y2="4.5" />
-      <line className="tooth" x1="7" y1="2" x2="7" y2="5" />
-      <line className="tooth" x1="9" y1="2" x2="9" y2="5" />
-      <line className="tooth" x1="11" y1="2" x2="11" y2="4.5" />
-      <line className="tooth" x1="13" y1="2.5" x2="13" y2="4" />
-      <line className="tooth" x1="5" y1="5" x2="5" y2="7" />
-      <line className="tooth" x1="7" y1="5.5" x2="7" y2="7.5" />
-      <line className="tooth" x1="9" y1="5.5" x2="9" y2="7.5" />
-      <line className="tooth" x1="11" y1="5" x2="11" y2="7" />
+    <svg className="head" viewBox="0 0 16 16">
+      <circle className="face" cx="8" cy="8" r="7" />
+      <ellipse className="eye" cx="5" cy="6.5" rx="1.5" ry="2.5" />
+      <ellipse className="pupil" cx="5" cy="7.5" rx="0.375" ry="0.625" />
+      <ellipse className="eye" cx="11" cy="6.5" rx="1.5" ry="2.5" />
+      <ellipse className="pupil" cx="11" cy="7.5" rx="0.375" ry="0.625" />
+      <path
+        className="mouth"
+        d="
+     M 4,10
+     A 3,2 0 0 0 12,10
+     L 4,10
+   "
+      />
+      <line className="tooth" x1="5.1" y1="11.5" x2="5.1" y2="12.5" />
+      <line className="tooth" x1="6.3" y1="11.1" x2="6.3" y2="12.1" />
+      <line className="tooth" x1="7.4" y1="11.3" y2="12.3" x2="7.4" />
+      <line className="tooth" x1="8.6" y1="11.9" x2="8.6" y2="12.7" />
+      <line className="tooth" x1="9.7" y1="11.9" x2="9.7" y2="12.7" />
+      <line className="tooth" x1="10.9" y1="11.1" x2="10.9" y2="12.1" />
+      <line className="tooth" x1="5.1" y1="10.3" x2="5.1" y2="10.7" />
+      <line className="tooth" x1="6.3" y1="10.3" x2="6.3" y2="10.9" />
+      <line className="tooth" x1="7.4" y1="10.3" x2="7.4" y2="11.1" />
+      <line className="tooth" x1="8.6" y1="10.3" x2="8.6" y2="11.1" />
+      <line className="tooth" x1="9.7" y1="10.3" x2="9.7" y2="11.1" />
+      <line className="tooth" x1="10.9" y1="10.3" x2="10.9" y2="10.9" />
       <path
         className="lips"
         d="
-    M 2,2
-    A 4,4 0 0 0 14,2
-    L 2,2
-  "
+     M 4,10
+     A 3,2 0 0 0 12,10
+     L 4,10
+   "
       />
     </svg>
   );

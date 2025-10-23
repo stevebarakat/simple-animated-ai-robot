@@ -1,9 +1,6 @@
-import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <svg className="head" viewBox="0 0 16 16">
       <circle className="face" cx="8" cy="8" r="7" />

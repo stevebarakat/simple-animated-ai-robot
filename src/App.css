@@ -82,20 +82,6 @@ html {
   stroke-linejoin: round;
 }
 
-.tooth:first-of-type,
-.tooth:last-of-type,
-.tooth:nth-of-type(6),
-.tooth:nth-of-type(7) {
-  stroke-width: 0.75px;
-}
-
-.tooth:nth-of-type(2),
-.tooth:nth-of-type(5),
-.tooth:nth-of-type(8),
-.tooth:nth-of-type(11) {
-  stroke-width: 0.88px;
-}
-
 .controls {
   display: flex;
   flex-direction: column;

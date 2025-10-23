@@ -26,25 +26,21 @@ function Tooth({
   config,
   isSpeaking,
   mouthIntensity = 1,
+  currentSyllable = 0,
 }: {
   config: (typeof TOOTH_CONFIGS)[0];
   isSpeaking: boolean;
   mouthIntensity?: number;
+  currentSyllable?: number;
 }) {
-  const offset = isSpeaking ? SPEAKING_OFFSET * mouthIntensity : 0;
+  const getAnimationDuration = () => {
+    return currentSyllable > 0 ? 0.15 : 0.2;
+  };
+
+  const bottomOffset = isSpeaking ? SPEAKING_OFFSET * mouthIntensity : 0;
 
   return (
-    <motion.g
-      animate={{
-        y: offset,
-      }}
-      transition={{
-        duration: 0.3,
-        repeat: isSpeaking ? Infinity : 0,
-        repeatType: "reverse",
-        ease: "easeInOut",
-      }}
-    >
+    <g>
       <line
         className="tooth"
         x1={config.x}
@@ -52,14 +48,24 @@ function Tooth({
         x2={config.x}
         y2={config.topYEnd}
       />
-      <line
+      <motion.line
         className="tooth"
         x1={config.x}
         y1={config.bottomY}
         x2={config.x}
         y2={config.bottomYEnd}
+        animate={{
+          y1: config.bottomY + bottomOffset,
+          y2: config.bottomYEnd + bottomOffset,
+        }}
+        transition={{
+          duration: getAnimationDuration(),
+          repeat: isSpeaking ? Infinity : 0,
+          repeatType: "reverse",
+          ease: "easeInOut",
+        }}
       />
-    </motion.g>
+    </g>
   );
 }
 
@@ -108,6 +114,7 @@ export function RobotHead({
           config={config}
           isSpeaking={isSpeaking}
           mouthIntensity={mouthIntensity}
+          currentSyllable={currentSyllable}
         />
       ))}
 

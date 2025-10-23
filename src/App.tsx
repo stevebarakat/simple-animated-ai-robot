@@ -1,51 +1,11 @@
 import "./App.css";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
+import { motion } from "motion/react";
 
 function App() {
   const [text, setText] = useState("");
   const [isSpeaking, setIsSpeaking] = useState(false);
   const synthRef = useRef<SpeechSynthesis | null>(null);
-  const bottomTeethRef = useRef<SVGLineElement[]>([]);
-
-  const animateBottomTeeth = () => {
-    const bottomTeeth = bottomTeethRef.current;
-    if (!bottomTeeth.length) return;
-
-    const keyframes = [
-      { transform: "translateY(0px)" },
-      { transform: "translateY(2px)" },
-    ];
-
-    const options = {
-      duration: 300,
-      iterations: Infinity,
-      direction: "alternate" as const,
-      easing: "ease-in-out",
-    };
-
-    bottomTeeth.forEach((tooth) => {
-      if (tooth) {
-        tooth.animate(keyframes, options);
-      }
-    });
-  };
-
-  const stopBottomTeethAnimation = () => {
-    const bottomTeeth = bottomTeethRef.current;
-    bottomTeeth.forEach((tooth) => {
-      if (tooth) {
-        tooth.getAnimations().forEach((animation) => animation.cancel());
-      }
-    });
-  };
-
-  useEffect(() => {
-    if (isSpeaking) {
-      animateBottomTeeth();
-    } else {
-      stopBottomTeethAnimation();
-    }
-  }, [isSpeaking]);
 
   const speak = () => {
     if (!text.trim()) return;
@@ -78,13 +38,19 @@ function App() {
         <ellipse className="pupil" cx="5" cy="7.5" rx="0.375" ry="0.625" />
         <ellipse className="eye" cx="11" cy="6.5" rx="1.5" ry="2.5" />
         <ellipse className="pupil" cx="11" cy="7.5" rx="0.375" ry="0.625" />
-        <path
+        <motion.path
           className="mouth"
-          d="
-            M 4,10
-            A 3,2 0 0 0 12,10
-            L 4,10
-          "
+          animate={{
+            d: isSpeaking
+              ? "M 4,10 A 3,3 0 0 0 12,10 L 4,10"
+              : "M 4,10 A 3,2 0 0 0 12,10 L 4,10",
+          }}
+          transition={{
+            duration: 0.3,
+            repeat: isSpeaking ? Infinity : 0,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
         />
         {/* top teeth */}
         <line className="tooth" x1="5.1" y1="10.3" x2="5.1" y2="10.8" />
@@ -95,73 +61,121 @@ function App() {
         <line className="tooth" x1="10.9" y1="10.3" x2="10.9" y2="10.8" />
 
         {/* bottom teeth */}
-        <line
-          ref={(el) => {
-            if (el) bottomTeethRef.current[0] = el;
-          }}
+        <motion.line
           className="tooth"
           x1="5.1"
           y1="11.1"
           x2="5.1"
           y2="11.9"
-        />
-        <line
-          ref={(el) => {
-            if (el) bottomTeethRef.current[1] = el;
+          animate={{
+            y1: isSpeaking ? 12.0 : 11.1,
+            y2: isSpeaking ? 12.8 : 11.9,
           }}
+          transition={{
+            duration: 0.3,
+            repeat: isSpeaking ? Infinity : 0,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
+        />
+        <motion.line
           className="tooth"
           x1="6.2"
           y1="11.3"
           x2="6.2"
-          y2="12.1"
-        />
-        <line
-          ref={(el) => {
-            if (el) bottomTeethRef.current[2] = el;
+          y2="12.5"
+          animate={{
+            y1: isSpeaking ? 12.2 : 11.3,
+            y2: isSpeaking ? 13.4 : 12.5,
           }}
+          transition={{
+            duration: 0.3,
+            repeat: isSpeaking ? Infinity : 0,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
+        />
+        <motion.line
           className="tooth"
           x1="7.4"
           y1="11.5"
-          y2="12.3"
+          y2="12.7"
           x2="7.4"
-        />
-        <line
-          ref={(el) => {
-            if (el) bottomTeethRef.current[3] = el;
+          animate={{
+            y1: isSpeaking ? 12.4 : 11.5,
+            y2: isSpeaking ? 13.6 : 12.7,
           }}
+          transition={{
+            duration: 0.3,
+            repeat: isSpeaking ? Infinity : 0,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
+        />
+        <motion.line
           className="tooth"
           x1="8.6"
           y1="11.5"
           x2="8.6"
           y2="12.7"
-        />
-        <line
-          ref={(el) => {
-            if (el) bottomTeethRef.current[4] = el;
+          animate={{
+            y1: isSpeaking ? 12.4 : 11.5,
+            y2: isSpeaking ? 13.6 : 12.7,
           }}
+          transition={{
+            duration: 0.3,
+            repeat: isSpeaking ? Infinity : 0,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
+        />
+        <motion.line
           className="tooth"
           x1="9.8"
           y1="11.3"
           x2="9.8"
           y2="12.7"
-        />
-        <line
-          ref={(el) => {
-            if (el) bottomTeethRef.current[5] = el;
+          animate={{
+            y1: isSpeaking ? 12.2 : 11.3,
+            y2: isSpeaking ? 13.6 : 12.7,
           }}
+          transition={{
+            duration: 0.3,
+            repeat: isSpeaking ? Infinity : 0,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
+        />
+        <motion.line
           className="tooth"
           x1="10.9"
           y1="11.1"
           x2="10.9"
           y2="12.1"
+          animate={{
+            y1: isSpeaking ? 12.0 : 11.1,
+            y2: isSpeaking ? 12.8 : 12.1,
+          }}
+          transition={{
+            duration: 0.3,
+            repeat: isSpeaking ? Infinity : 0,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
         />
-        <path
+        <motion.path
           className="lips"
-          d="
-            M 4,10
-            A 3,2 0 0 0 12,10
-            L 4,10
-          "
+          animate={{
+            d: isSpeaking
+              ? "M 4,10 A 3,3 0 0 0 12,10 L 4,10"
+              : "M 4,10 A 3,2 0 0 0 12,10 L 4,10",
+          }}
+          transition={{
+            duration: 0.3,
+            repeat: isSpeaking ? Infinity : 0,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
         />
       </svg>
 

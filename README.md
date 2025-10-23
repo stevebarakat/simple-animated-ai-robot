@@ -1,73 +1,141 @@
-# React + TypeScript + Vite
+# 🎨 Whimsical Animations Learning Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **Learning Web Animation** with Josh Comeau's course "Whimsical Animations"
 
-Currently, two official plugins are available:
+A React + TypeScript + Vite project focused on exploring creative web animations and interactive experiences. This repository serves as a playground for implementing various animation techniques learned through Josh Comeau's comprehensive animation course.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Quick Start
 
-## React Compiler
+```bash
+# Install dependencies
+npm install
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Start development server
+npm run dev
 
-## Expanding the ESLint configuration
+# Run tests
+npm run test
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# Build for production
+npm run build
+```
+
+## 🎯 What You'll Find Here
+
+This project demonstrates various web animation concepts including:
+
+- **CSS Animations & Transitions** - Smooth, performant animations
+- **JavaScript Animations** - Dynamic, interactive motion
+- **React Animation Patterns** - Component-based animation strategies
+- **Performance Optimization** - Techniques for smooth 60fps animations
+- **Accessibility Considerations** - Respecting user preferences and motion
+
+## 🛠️ Tech Stack
+
+- **React 18** - Modern React with hooks and concurrent features
+- **TypeScript** - Type-safe development experience
+- **Vite** - Lightning-fast build tool and dev server
+- **ESLint** - Code quality and consistency
+- **CSS Modules** - Scoped styling for components
+
+## 📚 Learning Resources
+
+- [Josh Comeau's Whimsical Animations Course](https://www.joshwcomeau.com/animation/)
+- [React Animation Libraries](https://react-spring.dev/)
+- [Web Animation API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+- [CSS Animation Best Practices](https://web.dev/animations/)
+
+## 🔧 Development Setup
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Available Scripts
+
+| Command           | Description                       |
+| ----------------- | --------------------------------- |
+| `npm run dev`     | Start development server with HMR |
+| `npm run build`   | Build for production              |
+| `npm run preview` | Preview production build          |
+| `npm run test`    | Run test suite                    |
+| `npm run lint`    | Run ESLint                        |
+
+### ESLint Configuration
+
+For production applications, consider upgrading to type-aware lint rules:
 
 ```js
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
       tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
       tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
       tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
-      // other options...
     },
   },
-])
+]);
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### React-Specific Linting
+
+Add React-specific rules with these plugins:
 
 ```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from "eslint-plugin-react-x";
+import reactDom from "eslint-plugin-react-dom";
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
+      reactX.configs["recommended-typescript"],
       reactDom.configs.recommended,
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
-      // other options...
     },
   },
-])
+]);
 ```
+
+## 🎨 Current Animation Implementation
+
+This project features a **talking robot face** with sophisticated mouth animations:
+
+- **SVG-based Robot Face** - Custom drawn robot with eyes, mouth, and teeth
+- **Speech-synchronized Animations** - Mouth opens and closes while speaking
+- **Teeth Animation** - Individual teeth move realistically during speech
+- **Framer Motion Integration** - Smooth, performant animations using React Motion
+- **Dual Mode Interface** - Text-to-speech and AI chat functionality
+- **Loading States** - Visual feedback during AI processing
+
+## 🤝 Contributing
+
+This is a learning project, but feel free to:
+
+1. Fork the repository
+2. Create a feature branch
+3. Implement new animation techniques
+4. Submit a pull request
+
+## 📄 License
+
+This project is for educational purposes as part of Josh Comeau's animation course.
+
+---
+
+_Happy animating! 🎉_

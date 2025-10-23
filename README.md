@@ -103,6 +103,7 @@ Here are some whimsical features that could make the robot more animated and eng
 
 **Facial Expressions & Emotions**
 
+- Make the mouth sync with the words better
 - Eye animations (blinking, looking around, pupil dilation)
 - Eyebrow movements for different emotions
 - Cheek animations (blushing, puffing up when excited)
@@ -110,6 +111,7 @@ Here are some whimsical features that could make the robot more animated and eng
 
 **Audio Visual Enhancements**
 
+- Make it look more like a robot
 - Color-changing eyes based on mood
 - Particle effects (sparkles, stars when excited)
 - Robot beeps, boops, and mechanical sounds

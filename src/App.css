@@ -25,17 +25,11 @@ html {
 }
 
 .face {
-  width: 100%;
-  height: 100%;
-  border: 1px solid hsl(210deg 10% 30%);
   fill: hsl(52, 100%, 50%);
   stroke-width: 1px;
 }
 
 .eye {
-  width: 100%;
-  height: 100%;
-  border: 1px solid hsl(210deg 10% 30%);
   fill: hsl(0, 0%, 100%);
 }
 
@@ -62,7 +56,6 @@ html {
   stroke-width: 1px;
   stroke-linecap: butt;
   stroke-linejoin: round;
-  z-index: 1;
   &:first-of-type,
   &:last-of-type,
   &:nth-of-type(6),
@@ -74,50 +67,6 @@ html {
   &:nth-of-type(8),
   &:nth-of-type(11) {
     stroke-width: 0.88px;
-  }
-}
-
-.speaking .mouth {
-  animation: mouthMove 0.3s ease-in-out infinite alternate;
-}
-
-.speaking .lips {
-  animation: lipsMove 0.3s ease-in-out infinite alternate;
-}
-
-.speaking .tooth:nth-of-type(1),
-.speaking .tooth:nth-of-type(2),
-.speaking .tooth:nth-of-type(3),
-.speaking .tooth:nth-of-type(4),
-.speaking .tooth:nth-of-type(5),
-.speaking .tooth:nth-of-type(6) {
-  animation: topTeethMove 0.3s ease-in-out infinite alternate;
-}
-
-@keyframes mouthMove {
-  0% {
-    d: path("M 4,10 A 3,2 0 0 0 12,10 L 4,10");
-  }
-  100% {
-    d: path("M 4,10 A 3,3 0 0 0 12,10 L 4,10");
-  }
-}
-
-@keyframes lipsMove {
-  0% {
-    d: path("M 4,10 A 3,2 0 0 0 12,10 L 4,10");
-  }
-  100% {
-    d: path("M 4,10 A 3,3 0 0 0 12,10 L 4,10");
-  }
-}
-
-@keyframes topTeethMove {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-0.15);
   }
 }
 

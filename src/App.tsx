@@ -2,6 +2,11 @@ import "./App.css";
 import { useState, useRef } from "react";
 import { motion } from "motion/react";
 
+const MOUTH_PATHS = {
+  closed: "M 4,10 A 3,2 0 0 0 12,10 L 4,10",
+  open: "M 4,10 A 3,3 0 0 0 12,10 L 4,10",
+};
+
 function App() {
   const [text, setText] = useState("");
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -93,10 +98,9 @@ function App() {
         <ellipse className="pupil" cx="11" cy="7.5" rx="0.375" ry="0.625" />
         <motion.path
           className="mouth"
+          initial={{ d: MOUTH_PATHS.closed }}
           animate={{
-            d: isSpeaking
-              ? "M 4,10 A 3,3 0 0 0 12,10 L 4,10"
-              : "M 4,10 A 3,2 0 0 0 12,10 L 4,10",
+            d: isSpeaking ? MOUTH_PATHS.open : MOUTH_PATHS.closed,
           }}
           transition={{
             duration: 0.3,
@@ -218,10 +222,9 @@ function App() {
         />
         <motion.path
           className="lips"
+          initial={{ d: MOUTH_PATHS.closed }}
           animate={{
-            d: isSpeaking
-              ? "M 4,10 A 3,3 0 0 0 12,10 L 4,10"
-              : "M 4,10 A 3,2 0 0 0 12,10 L 4,10",
+            d: isSpeaking ? MOUTH_PATHS.open : MOUTH_PATHS.closed,
           }}
           transition={{
             duration: 0.3,
@@ -270,7 +273,7 @@ function App() {
             : isSpeaking
             ? "Speaking..."
             : mode === "speak"
-            ? "Speak"
+            ? "Say it"
             : "Ask"}
         </button>
       </div>

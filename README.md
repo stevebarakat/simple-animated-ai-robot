@@ -97,6 +97,31 @@ Feel free to contribute to this project:
 3. Add new features or improvements
 4. Submit a pull request
 
+### 🎭 Ideas for Future Enhancements
+
+Here are some whimsical features that could make the robot more animated and engaging:
+
+**Facial Expressions & Emotions**
+
+- Eye animations (blinking, looking around, pupil dilation)
+- Eyebrow movements for different emotions
+- Cheek animations (blushing, puffing up when excited)
+- Head tilting to show curiosity or confusion
+
+**Audio Visual Enhancements**
+
+- Color-changing eyes based on mood
+- Particle effects (sparkles, stars when excited)
+- Robot beeps, boops, and mechanical sounds
+- Different robot voices for different personalities
+
+**Personality Features**
+
+- Idle animations when not speaking
+- Reaction animations to specific words or emotions
+- Sleep mode with closed eyes when inactive
+- Dramatic wake-up sequence when activated
+
 ## 📄 License
 
 This project is open source and available under the MIT License.

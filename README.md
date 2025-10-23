@@ -1,8 +1,8 @@
-# 🎨 Whimsical Animations Learning Project
+# 🤖 Talking Robot App
 
-> **Learning Web Animation** with Josh Comeau's course "Whimsical Animations"
+> **Interactive AI Robot** with Speech Synthesis and Animated Mouth
 
-A React + TypeScript + Vite project focused on exploring creative web animations and interactive experiences. This repository serves as a playground for implementing various animation techniques learned through Josh Comeau's comprehensive animation course.
+A React + TypeScript + Vite application featuring a talking robot with synchronized mouth animations, text-to-speech capabilities, and AI chat functionality. This project is part of Josh Comeau's Whimsical Animations course, demonstrating advanced animation techniques with realistic mouth movements synchronized to speech.
 
 ## 🚀 Quick Start
 
@@ -13,44 +13,53 @@ npm install
 # Start development server
 npm run dev
 
-# Run tests
-npm run test
+# Run linting
+npm run lint
 
 # Build for production
 npm run build
 ```
 
-## 🎯 What You'll Find Here
+## 🎯 Features
 
-This project demonstrates various web animation concepts including:
+This interactive robot application includes:
 
-- **CSS Animations & Transitions** - Smooth, performant animations
-- **JavaScript Animations** - Dynamic, interactive motion
-- **React Animation Patterns** - Component-based animation strategies
-- **Performance Optimization** - Techniques for smooth 60fps animations
-- **Accessibility Considerations** - Respecting user preferences and motion
+- **Animated Robot Face** - SVG-based robot with realistic mouth movements
+- **Speech Synchronization** - Mouth opens and closes in sync with speech
+- **Text-to-Speech** - Built-in browser speech synthesis
+- **AI Chat Integration** - Powered by OpenAI GPT-3.5-turbo
+- **Dual Modes** - Speak text directly or ask AI questions
+- **Syllable Analysis** - Advanced mouth animation based on speech patterns
+- **Loading States** - Visual feedback during AI processing
 
 ## 🛠️ Tech Stack
 
-- **React 18** - Modern React with hooks and concurrent features
+- **React 19** - Modern React with hooks and concurrent features
 - **TypeScript** - Type-safe development experience
 - **Vite** - Lightning-fast build tool and dev server
+- **Motion** - Smooth animations and transitions
+- **Web Speech API** - Browser-native text-to-speech
+- **OpenAI API** - AI chat functionality
 - **ESLint** - Code quality and consistency
-- **CSS Modules** - Scoped styling for components
 
 ## 📚 Learning Resources
 
-- [Josh Comeau's Whimsical Animations Course](https://www.joshwcomeau.com/animation/)
-- [React Animation Libraries](https://react-spring.dev/)
-- [Web Animation API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
-- [CSS Animation Best Practices](https://web.dev/animations/)
+This project is part of [Josh Comeau's Whimsical Animations Course](https://www.joshwcomeau.com/animation/), which teaches advanced web animation techniques including:
 
-## 🔧 Development Setup
+- Speech-synchronized animations
+- SVG manipulation and morphing
+- Performance optimization for complex animations
+- Real-time animation state management
 
-### Prerequisites
+## 🔧 Setup & Configuration
 
-- Node.js 18+
-- npm or yarn
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+```bash
+VITE_OPENAI_API_KEY=your_openai_api_key_here
+```
 
 ### Available Scripts
 
@@ -59,83 +68,39 @@ This project demonstrates various web animation concepts including:
 | `npm run dev`     | Start development server with HMR |
 | `npm run build`   | Build for production              |
 | `npm run preview` | Preview production build          |
-| `npm run test`    | Run test suite                    |
 | `npm run lint`    | Run ESLint                        |
 
-### ESLint Configuration
+## 🎨 How It Works
 
-For production applications, consider upgrading to type-aware lint rules:
+### Speech Animation System
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      tseslint.configs.recommendedTypeChecked,
-      tseslint.configs.strictTypeChecked,
-      tseslint.configs.stylisticTypeChecked,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-  },
-]);
-```
+The robot's mouth animation is driven by sophisticated text analysis:
 
-### React-Specific Linting
+1. **Text Analysis** - Breaks down speech into syllables and timing
+2. **Speech Synthesis** - Uses browser's Web Speech API for natural voice
+3. **Mouth Synchronization** - Animates mouth opening/closing based on speech patterns
+4. **AI Integration** - Processes user questions through OpenAI's API
 
-Add React-specific rules with these plugins:
+### Component Architecture
 
-```js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      reactX.configs["recommended-typescript"],
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-  },
-]);
-```
-
-## 🎨 Current Animation Implementation
-
-This project features a **talking robot face** with sophisticated mouth animations:
-
-- **SVG-based Robot Face** - Custom drawn robot with eyes, mouth, and teeth
-- **Speech-synchronized Animations** - Mouth opens and closes while speaking
-- **Teeth Animation** - Individual teeth move realistically during speech
-- **Framer Motion Integration** - Smooth, performant animations using React Motion
-- **Dual Mode Interface** - Text-to-speech and AI chat functionality
-- **Loading States** - Visual feedback during AI processing
+- **RobotHead** - SVG-based robot face with animated mouth
+- **Controls** - Input interface with dual mode switching
+- **useSyllableMouthAnimation** - Custom hook managing mouth animation state
+- **textAnalysis** - Utility for analyzing speech timing and patterns
 
 ## 🤝 Contributing
 
-This is a learning project, but feel free to:
+Feel free to contribute to this project:
 
 1. Fork the repository
 2. Create a feature branch
-3. Implement new animation techniques
+3. Add new features or improvements
 4. Submit a pull request
 
 ## 📄 License
 
-This project is for educational purposes as part of Josh Comeau's animation course.
+This project is open source and available under the MIT License.
 
 ---
 
-_Happy animating! 🎉_
+_Happy chatting with the robot! 🤖_

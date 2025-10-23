@@ -24,11 +24,13 @@ const SPEAKING_OFFSET = 0.9;
 
 function Tooth({
   config,
+  toothNumber,
   isSpeaking,
   mouthIntensity = 1,
   currentSyllable = 0,
 }: {
   config: (typeof TOOTH_CONFIGS)[0];
+  toothNumber: number;
   isSpeaking: boolean;
   mouthIntensity?: number;
   currentSyllable?: number;
@@ -39,17 +41,19 @@ function Tooth({
 
   const bottomOffset = isSpeaking ? SPEAKING_OFFSET * mouthIntensity : 0;
 
+  const toothClass = `tooth tooth-${toothNumber}`;
+
   return (
     <g>
       <line
-        className="tooth"
+        className={toothClass}
         x1={config.x}
         y1={config.topY}
         x2={config.x}
         y2={config.topYEnd}
       />
       <motion.line
-        className="tooth"
+        className={toothClass}
         x1={config.x}
         y1={config.bottomY}
         x2={config.x}
@@ -112,6 +116,7 @@ export function RobotHead({
         <Tooth
           key={index}
           config={config}
+          toothNumber={index + 1}
           isSpeaking={isSpeaking}
           mouthIntensity={mouthIntensity}
           currentSyllable={currentSyllable}

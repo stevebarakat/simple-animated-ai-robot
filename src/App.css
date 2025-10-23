@@ -82,6 +82,20 @@ html {
   stroke-linejoin: round;
 }
 
+.tooth-1,
+.tooth-6,
+.tooth-7,
+.tooth-12 {
+  stroke-width: 0.75px;
+}
+
+.tooth-2,
+.tooth-5,
+.tooth-8,
+.tooth-11 {
+  stroke-width: 0.88px;
+}
+
 .controls {
   display: flex;
   flex-direction: column;

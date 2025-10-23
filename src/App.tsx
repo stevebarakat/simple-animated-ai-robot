@@ -1,10 +1,52 @@
 import "./App.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function App() {
   const [text, setText] = useState("");
   const [isSpeaking, setIsSpeaking] = useState(false);
   const synthRef = useRef<SpeechSynthesis | null>(null);
+  const bottomTeethRef = useRef<SVGLineElement[]>([]);
+
+  const animateBottomTeeth = () => {
+    const bottomTeeth = bottomTeethRef.current;
+    if (!bottomTeeth.length) return;
+
+    const keyframes = [
+      { transform: "translateY(0px)" },
+      { transform: "translateY(2px)" },
+      { transform: "translateY(0px)" },
+    ];
+
+    const options = {
+      duration: 300,
+      iterations: Infinity,
+      direction: "alternate" as const,
+      easing: "ease-in-out",
+    };
+
+    bottomTeeth.forEach((tooth) => {
+      if (tooth) {
+        tooth.animate(keyframes, options);
+      }
+    });
+  };
+
+  const stopBottomTeethAnimation = () => {
+    const bottomTeeth = bottomTeethRef.current;
+    bottomTeeth.forEach((tooth) => {
+      if (tooth) {
+        tooth.getAnimations().forEach((animation) => animation.cancel());
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (isSpeaking) {
+      animateBottomTeeth();
+    } else {
+      stopBottomTeethAnimation();
+    }
+  }, [isSpeaking]);
 
   const speak = () => {
     if (!text.trim()) return;
@@ -54,12 +96,66 @@ function App() {
         <line className="tooth" x1="10.9" y1="10.3" x2="10.9" y2="10.8" />
 
         {/* bottom teeth */}
-        <line className="tooth" x1="5.1" y1="11.1" x2="5.1" y2="11.9" />
-        <line className="tooth" x1="6.2" y1="11.3" x2="6.2" y2="12.1" />
-        <line className="tooth" x1="7.4" y1="11.5" y2="12.3" x2="7.4" />
-        <line className="tooth" x1="8.6" y1="11.5" x2="8.6" y2="12.7" />
-        <line className="tooth" x1="9.8" y1="11.3" x2="9.8" y2="12.7" />
-        <line className="tooth" x1="10.9" y1="11.1" x2="10.9" y2="12.1" />
+        <line
+          ref={(el) => {
+            if (el) bottomTeethRef.current[0] = el;
+          }}
+          className="tooth"
+          x1="5.1"
+          y1="11.1"
+          x2="5.1"
+          y2="11.9"
+        />
+        <line
+          ref={(el) => {
+            if (el) bottomTeethRef.current[1] = el;
+          }}
+          className="tooth"
+          x1="6.2"
+          y1="11.3"
+          x2="6.2"
+          y2="12.1"
+        />
+        <line
+          ref={(el) => {
+            if (el) bottomTeethRef.current[2] = el;
+          }}
+          className="tooth"
+          x1="7.4"
+          y1="11.5"
+          y2="12.3"
+          x2="7.4"
+        />
+        <line
+          ref={(el) => {
+            if (el) bottomTeethRef.current[3] = el;
+          }}
+          className="tooth"
+          x1="8.6"
+          y1="11.5"
+          x2="8.6"
+          y2="12.7"
+        />
+        <line
+          ref={(el) => {
+            if (el) bottomTeethRef.current[4] = el;
+          }}
+          className="tooth"
+          x1="9.8"
+          y1="11.3"
+          x2="9.8"
+          y2="12.7"
+        />
+        <line
+          ref={(el) => {
+            if (el) bottomTeethRef.current[5] = el;
+          }}
+          className="tooth"
+          x1="10.9"
+          y1="11.1"
+          x2="10.9"
+          y2="12.1"
+        />
         <path
           className="lips"
           d="

@@ -51,7 +51,7 @@ html {
 
 .tooth {
   stroke: hsl(0, 0%, 100%);
-  stroke-width: 0.75px;
+  stroke-width: 1x;
   stroke-linecap: butt;
   stroke-linejoin: round;
   z-index: 1;

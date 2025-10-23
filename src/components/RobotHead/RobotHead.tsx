@@ -7,6 +7,7 @@ const MOUTH_PATHS = {
 
 interface RobotHeadProps {
   isSpeaking: boolean;
+  mouthIntensity?: number;
 }
 
 const TOOTH_CONFIGS = [
@@ -23,14 +24,18 @@ const SPEAKING_OFFSET = 0.9;
 function Tooth({
   config,
   isSpeaking,
+  mouthIntensity = 1,
 }: {
   config: (typeof TOOTH_CONFIGS)[0];
   isSpeaking: boolean;
+  mouthIntensity?: number;
 }) {
+  const offset = isSpeaking ? SPEAKING_OFFSET * mouthIntensity : 0;
+
   return (
     <motion.g
       animate={{
-        y: isSpeaking ? SPEAKING_OFFSET : 0,
+        y: offset,
       }}
       transition={{
         duration: 0.3,
@@ -57,7 +62,15 @@ function Tooth({
   );
 }
 
-export function RobotHead({ isSpeaking }: RobotHeadProps) {
+export function RobotHead({ isSpeaking, mouthIntensity = 1 }: RobotHeadProps) {
+  const getMouthPath = () => {
+    if (!isSpeaking) return MOUTH_PATHS.closed;
+
+    const intensity = Math.max(0, Math.min(mouthIntensity, 1));
+    const radiusY = 2 + 1 * intensity;
+    return `M 4,10 A 3,${radiusY} 0 0 0 12,10 L 4,10`;
+  };
+
   return (
     <svg className={`head ${isSpeaking ? "speaking" : ""}`} viewBox="0 0 16 16">
       <circle className="face" cx="8" cy="8" r="7" />
@@ -70,7 +83,7 @@ export function RobotHead({ isSpeaking }: RobotHeadProps) {
         className="mouth"
         initial={{ d: MOUTH_PATHS.closed }}
         animate={{
-          d: isSpeaking ? MOUTH_PATHS.open : MOUTH_PATHS.closed,
+          d: getMouthPath(),
         }}
         transition={{
           duration: 0.3,
@@ -81,14 +94,19 @@ export function RobotHead({ isSpeaking }: RobotHeadProps) {
       />
 
       {TOOTH_CONFIGS.map((config, index) => (
-        <Tooth key={index} config={config} isSpeaking={isSpeaking} />
+        <Tooth
+          key={index}
+          config={config}
+          isSpeaking={isSpeaking}
+          mouthIntensity={mouthIntensity}
+        />
       ))}
 
       <motion.path
         className="lips"
         initial={{ d: MOUTH_PATHS.closed }}
         animate={{
-          d: isSpeaking ? MOUTH_PATHS.open : MOUTH_PATHS.closed,
+          d: getMouthPath(),
         }}
         transition={{
           duration: 0.3,

@@ -1,18 +1,17 @@
 import "./App.css";
 import { useState, useRef } from "react";
-import { motion } from "motion/react";
-
-const MOUTH_PATHS = {
-  closed: "M 4,10 A 3,2 0 0 0 12,10 L 4,10",
-  open: "M 4,10 A 3,3 0 0 0 12,10 L 4,10",
-};
+import { RobotHead } from "./components/RobotHead/RobotHead";
+import { Controls } from "./components/Controls/Controls";
+import { useConsonantMouthAnimation } from "./hooks/useConsonantMouthAnimation";
+import { analyzeText } from "./utils/textAnalysis";
 
 function App() {
   const [text, setText] = useState("");
-  const [isSpeaking, setIsSpeaking] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState<"speak" | "ask">("speak");
   const synthRef = useRef<SpeechSynthesis | null>(null);
+  const { mouthState, startAnimation, stopAnimation } =
+    useConsonantMouthAnimation();
 
   const askAI = async () => {
     if (!text.trim()) return;
@@ -72,9 +71,17 @@ function App() {
     utterance.pitch = 0.5;
     utterance.volume = 0.8;
 
-    utterance.onstart = () => setIsSpeaking(true);
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = () => setIsSpeaking(false);
+    const wordAnalysis = analyzeText(textToSpeak, utterance.rate);
+
+    utterance.onstart = () => {
+      startAnimation(wordAnalysis);
+    };
+    utterance.onend = () => {
+      stopAnimation();
+    };
+    utterance.onerror = () => {
+      stopAnimation();
+    };
 
     synthRef.current = window.speechSynthesis;
     synthRef.current.speak(utterance);
@@ -87,196 +94,20 @@ function App() {
 
   return (
     <div className="container">
-      <svg
-        className={`head ${isSpeaking ? "speaking" : ""}`}
-        viewBox="0 0 16 16"
-      >
-        <circle className="face" cx="8" cy="8" r="7" />
-        <ellipse className="eye" cx="5" cy="6.5" rx="1.5" ry="2.5" />
-        <ellipse className="pupil" cx="5" cy="7.5" rx="0.375" ry="0.625" />
-        <ellipse className="eye" cx="11" cy="6.5" rx="1.5" ry="2.5" />
-        <ellipse className="pupil" cx="11" cy="7.5" rx="0.375" ry="0.625" />
-        <motion.path
-          className="mouth"
-          initial={{ d: MOUTH_PATHS.closed }}
-          animate={{
-            d: isSpeaking ? MOUTH_PATHS.open : MOUTH_PATHS.closed,
-          }}
-          transition={{
-            duration: 0.3,
-            repeat: isSpeaking ? Infinity : 0,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-        />
-        {/* top teeth */}
-        <line className="tooth" x1="5.1" y1="10.3" x2="5.1" y2="10.8" />
-        <line className="tooth" x1="6.2" y1="10.3" x2="6.2" y2="11" />
-        <line className="tooth" x1="7.4" y1="10.3" x2="7.4" y2="11.2" />
-        <line className="tooth" x1="8.6" y1="10.3" x2="8.6" y2="11.2" />
-        <line className="tooth" x1="9.8" y1="10.3" x2="9.8" y2="11" />
-        <line className="tooth" x1="10.9" y1="10.3" x2="10.9" y2="10.8" />
+      <RobotHead
+        isSpeaking={mouthState.isAnimating}
+        mouthIntensity={mouthState.intensity}
+      />
 
-        {/* bottom teeth */}
-        <motion.line
-          className="tooth"
-          x1="5.1"
-          y1="11.1"
-          x2="5.1"
-          y2="11.9"
-          animate={{
-            y1: isSpeaking ? 12.0 : 11.1,
-            y2: isSpeaking ? 12.8 : 11.9,
-          }}
-          transition={{
-            duration: 0.3,
-            repeat: isSpeaking ? Infinity : 0,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-        />
-        <motion.line
-          className="tooth"
-          x1="6.2"
-          y1="11.3"
-          x2="6.2"
-          y2="12.5"
-          animate={{
-            y1: isSpeaking ? 12.2 : 11.3,
-            y2: isSpeaking ? 13.4 : 12.5,
-          }}
-          transition={{
-            duration: 0.3,
-            repeat: isSpeaking ? Infinity : 0,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-        />
-        <motion.line
-          className="tooth"
-          x1="7.4"
-          y1="11.5"
-          y2="12.7"
-          x2="7.4"
-          animate={{
-            y1: isSpeaking ? 12.4 : 11.5,
-            y2: isSpeaking ? 13.6 : 12.7,
-          }}
-          transition={{
-            duration: 0.3,
-            repeat: isSpeaking ? Infinity : 0,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-        />
-        <motion.line
-          className="tooth"
-          x1="8.6"
-          y1="11.5"
-          x2="8.6"
-          y2="12.7"
-          animate={{
-            y1: isSpeaking ? 12.4 : 11.5,
-            y2: isSpeaking ? 13.6 : 12.7,
-          }}
-          transition={{
-            duration: 0.3,
-            repeat: isSpeaking ? Infinity : 0,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-        />
-        <motion.line
-          className="tooth"
-          x1="9.8"
-          y1="11.3"
-          x2="9.8"
-          y2="12.7"
-          animate={{
-            y1: isSpeaking ? 12.2 : 11.3,
-            y2: isSpeaking ? 13.6 : 12.7,
-          }}
-          transition={{
-            duration: 0.3,
-            repeat: isSpeaking ? Infinity : 0,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-        />
-        <motion.line
-          className="tooth"
-          x1="10.9"
-          y1="11.1"
-          x2="10.9"
-          y2="12.1"
-          animate={{
-            y1: isSpeaking ? 12.0 : 11.1,
-            y2: isSpeaking ? 12.8 : 12.1,
-          }}
-          transition={{
-            duration: 0.3,
-            repeat: isSpeaking ? Infinity : 0,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-        />
-        <motion.path
-          className="lips"
-          initial={{ d: MOUTH_PATHS.closed }}
-          animate={{
-            d: isSpeaking ? MOUTH_PATHS.open : MOUTH_PATHS.closed,
-          }}
-          transition={{
-            duration: 0.3,
-            repeat: isSpeaking ? Infinity : 0,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-        />
-      </svg>
-
-      <div className="controls">
-        <div className="mode-toggle">
-          <button
-            className={`mode-button ${mode === "speak" ? "active" : ""}`}
-            onClick={() => setMode("speak")}
-          >
-            Speak
-          </button>
-          <button
-            className={`mode-button ${mode === "ask" ? "active" : ""}`}
-            onClick={() => setMode("ask")}
-          >
-            Ask AI
-          </button>
-        </div>
-
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder={
-            mode === "speak"
-              ? "Enter text for the robot to speak..."
-              : "Ask the robot a question..."
-          }
-          className="text-input"
-        />
-
-        <button
-          onClick={mode === "speak" ? speak : askAI}
-          disabled={!text.trim() || isLoading}
-          className="action-button"
-        >
-          {isLoading
-            ? "Thinking..."
-            : isSpeaking
-            ? "Speaking..."
-            : mode === "speak"
-            ? "Say it"
-            : "Ask"}
-        </button>
-      </div>
+      <Controls
+        mode={mode}
+        text={text}
+        isLoading={isLoading}
+        isSpeaking={mouthState.isAnimating}
+        onModeChange={setMode}
+        onTextChange={setText}
+        onAction={mode === "speak" ? speak : askAI}
+      />
     </div>
   );
 }

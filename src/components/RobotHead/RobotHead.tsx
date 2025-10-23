@@ -8,6 +8,7 @@ const MOUTH_PATHS = {
 interface RobotHeadProps {
   isSpeaking: boolean;
   mouthIntensity?: number;
+  currentSyllable?: number;
 }
 
 const TOOTH_CONFIGS = [
@@ -62,13 +63,21 @@ function Tooth({
   );
 }
 
-export function RobotHead({ isSpeaking, mouthIntensity = 1 }: RobotHeadProps) {
+export function RobotHead({
+  isSpeaking,
+  mouthIntensity = 1,
+  currentSyllable = 0,
+}: RobotHeadProps) {
   const getMouthPath = () => {
     if (!isSpeaking) return MOUTH_PATHS.closed;
 
     const intensity = Math.max(0, Math.min(mouthIntensity, 1));
     const radiusY = 2 + 1 * intensity;
     return `M 4,10 A 3,${radiusY} 0 0 0 12,10 L 4,10`;
+  };
+
+  const getAnimationDuration = () => {
+    return currentSyllable > 0 ? 0.15 : 0.2;
   };
 
   return (
@@ -86,7 +95,7 @@ export function RobotHead({ isSpeaking, mouthIntensity = 1 }: RobotHeadProps) {
           d: getMouthPath(),
         }}
         transition={{
-          duration: 0.3,
+          duration: getAnimationDuration(),
           repeat: isSpeaking ? Infinity : 0,
           repeatType: "reverse",
           ease: "easeInOut",
@@ -109,7 +118,7 @@ export function RobotHead({ isSpeaking, mouthIntensity = 1 }: RobotHeadProps) {
           d: getMouthPath(),
         }}
         transition={{
-          duration: 0.3,
+          duration: getAnimationDuration(),
           repeat: isSpeaking ? Infinity : 0,
           repeatType: "reverse",
           ease: "easeInOut",

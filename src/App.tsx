@@ -2,7 +2,7 @@ import "./App.css";
 import { useState, useRef } from "react";
 import { RobotHead } from "./components/RobotHead/RobotHead";
 import { Controls } from "./components/Controls/Controls";
-import { useConsonantMouthAnimation } from "./hooks/useConsonantMouthAnimation";
+import { useSyllableMouthAnimation } from "./hooks/useSyllableMouthAnimation";
 import { analyzeText } from "./utils/textAnalysis";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
   const [mode, setMode] = useState<"speak" | "ask">("speak");
   const synthRef = useRef<SpeechSynthesis | null>(null);
   const { mouthState, startAnimation, stopAnimation } =
-    useConsonantMouthAnimation();
+    useSyllableMouthAnimation();
 
   const askAI = async () => {
     if (!text.trim()) return;
@@ -97,6 +97,7 @@ function App() {
       <RobotHead
         isSpeaking={mouthState.isAnimating}
         mouthIntensity={mouthState.intensity}
+        currentSyllable={mouthState.currentSyllable}
       />
 
       <Controls

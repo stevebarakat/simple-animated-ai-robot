@@ -1,31 +1,36 @@
-import { useState, useEffect, useRef } from 'react';
-import type { WordAnalysis } from '../utils/textAnalysis';
+import { useState, useEffect, useRef } from "react";
+import type { WordAnalysis } from "../utils/textAnalysis";
 
 export interface MouthState {
   isAnimating: boolean;
   intensity: number;
   currentWord: string;
+  currentSyllable: number;
 }
 
-export function useConsonantMouthAnimation() {
+export function useSyllableMouthAnimation() {
   const [mouthState, setMouthState] = useState<MouthState>({
     isAnimating: false,
     intensity: 0,
-    currentWord: ''
+    currentWord: "",
+    currentSyllable: 0,
   });
-  
+
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const wordIndexRef = useRef(0);
+  const syllableIndexRef = useRef(0);
   const wordAnalysisRef = useRef<WordAnalysis[]>([]);
 
   const startAnimation = (wordAnalysis: WordAnalysis[]) => {
     wordAnalysisRef.current = wordAnalysis;
     wordIndexRef.current = 0;
-    
+    syllableIndexRef.current = 0;
+
     setMouthState({
       isAnimating: true,
       intensity: 0,
-      currentWord: ''
+      currentWord: "",
+      currentSyllable: 0,
     });
 
     if (wordAnalysis.length === 0) {
@@ -33,27 +38,33 @@ export function useConsonantMouthAnimation() {
       return;
     }
 
-    const animateWord = (index: number) => {
-      if (index >= wordAnalysis.length) {
+    const animateSyllable = (wordIndex: number, syllableIndex: number) => {
+      if (wordIndex >= wordAnalysis.length) {
         stopAnimation();
         return;
       }
 
-      const word = wordAnalysis[index];
-      const intensity = Math.min(word.consonantCount / 4, 1);
-      
+      const word = wordAnalysis[wordIndex];
+      const intensity = Math.min(word.syllableCount / 3, 1);
+      const syllableDuration = word.duration / word.syllableCount;
+
       setMouthState({
         isAnimating: true,
         intensity,
-        currentWord: word.word
+        currentWord: word.word,
+        currentSyllable: syllableIndex + 1,
       });
 
       intervalRef.current = setTimeout(() => {
-        animateWord(index + 1);
-      }, word.duration);
+        if (syllableIndex + 1 >= word.syllableCount) {
+          animateSyllable(wordIndex + 1, 0);
+        } else {
+          animateSyllable(wordIndex, syllableIndex + 1);
+        }
+      }, syllableDuration);
     };
 
-    animateWord(0);
+    animateSyllable(0, 0);
   };
 
   const stopAnimation = () => {
@@ -61,11 +72,12 @@ export function useConsonantMouthAnimation() {
       clearTimeout(intervalRef.current);
       intervalRef.current = null;
     }
-    
+
     setMouthState({
       isAnimating: false,
       intensity: 0,
-      currentWord: ''
+      currentWord: "",
+      currentSyllable: 0,
     });
   };
 
@@ -80,6 +92,6 @@ export function useConsonantMouthAnimation() {
   return {
     mouthState,
     startAnimation,
-    stopAnimation
+    stopAnimation,
   };
 }

@@ -2,7 +2,7 @@
 
 > **Interactive AI Robot** with Speech Synthesis and Animated Mouth
 
-A React + TypeScript + Vite application featuring a talking robot with synchronized mouth animations, text-to-speech capabilities, and AI chat functionality. This project is part of Josh Comeau's Whimsical Animations course, demonstrating advanced animation techniques with realistic mouth movements synchronized to speech.
+A React + TypeScript + Vite application featuring a talking robot with synchronized mouth animations, text-to-speech capabilities, and AI chat functionality. This project is part of Josh Comeau's Whimsical Animations course, demonstrating animation techniques with mouth movements synchronized to speech.
 
 ## 🚀 Quick Start
 
@@ -44,7 +44,7 @@ This interactive robot application includes:
 
 ## 📚 Learning Resources
 
-This project is part of [Josh Comeau's Whimsical Animations Course](https://www.joshwcomeau.com/animation/), which teaches advanced web animation techniques including:
+This project is part of [Josh Comeau's Whimsical Animations Course](https://whimsy.joshwcomeau.com/), which teaches advanced web animation techniques including:
 
 - Speech-synchronized animations
 - SVG manipulation and morphing
